@@ -126,25 +126,56 @@ export interface Evaluation {
   feedback: string;
   suggestions: string;
   criteriaScores?: Record<string, number>;
-  transcription?: string; // For speaking questions
+  transcription?: string; // For speaking questions (AI or manual)
   audioUrl?: string;
+  aiEvaluation?: AIOverallEvaluation; // New field to hold the structured AI evaluation result
 }
 
+// Base AI Evaluation Interface
+export interface AIOverallEvaluation {
+  overallScore: number; // Overall score given by AI
+  feedback: string; // Detailed textual feedback
+  suggestions: string; // Suggestions for improvement
+  criteriaScores: Record<string, number>; // Specific criteria scores (e.g., { "Fluency": 7, "Lexical Resource": 6 })
+  rawAIAssessment?: any; // Optional: To store the raw JSON response from AI for advanced debugging/auditing
+}
+
+// Specific AI Evaluation Interfaces for different exam types and skills
+export interface IELTSWritingAIEvaluation extends AIOverallEvaluation {
+  taskAchievement: number;
+  coherenceCohesion: number;
+  lexicalResource: number;
+  grammaticalRange: number;
+}
+
+export interface IELTSSpeakingAIEvaluation extends AIOverallEvaluation {
+  fluencyCoherence: number;
+  lexicalResource: number;
+  grammaticalRange: number;
+  pronunciation: number;
+  transcription: string; // Transcription from STT service
+}
+
+export interface TOEFLWritingAIEvaluation extends AIOverallEvaluation {
+  development: number;
+  organization: number;
+  languageUse: number;
+}
+
+export interface TOEFLSpeakingAIEvaluation extends AIOverallEvaluation {
+  delivery: number;
+  languageUse: number;
+  topicDevelopment: number;
+  transcription: string; // Transcription from STT service
+}
+
+// Existing Evaluation Types (no change needed as AI results are now nested under 'aiEvaluation')
 export interface WritingEvaluation extends Evaluation {
-  taskAchievement?: number;
-  coherenceCohesion?: number;
-  lexicalResource?: number;
-  grammaticalRange?: number;
-  overallBandScore: number;
+  // specific writing fields for non-AI evaluations if needed, otherwise rely on general Evaluation for AI ones.
 }
 
 export interface SpeakingEvaluation extends Evaluation {
-  fluencyCoherence?: number;
-  lexicalResource?: number;
-  grammaticalRange?: number;
-  pronunciation?: number;
-  overallBandScore: number;
-  transcription: string;
+  // specific speaking fields for non-AI evaluations if needed, otherwise rely on general Evaluation for AI ones.
 }
 
 // API Response Types

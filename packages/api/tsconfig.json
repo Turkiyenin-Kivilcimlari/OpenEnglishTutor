@@ -28,9 +28,16 @@
       "@/routes/*": ["routes/*"],
       "@/middleware/*": ["middleware/*"],
       "@/utils/*": ["utils/*"],
-      "@/config/*": ["config/*"]
+      "@/config/*": ["config/*"],
+      "@openenglishtutor/shared/types": ["../../packages/shared/src/types"],
+      "@openenglishtutor/shared/constants": ["../../packages/shared/src/constants"],
+      "@openenglishtutor/shared/utils": ["../../packages/shared/src/utils"],
+      "@openenglishtutor/shared/validations": ["../../packages/shared/src/validations"]
     }
   },
+  "references": [
+    { "path": "../../packages/shared" }
+  ],
   "include": [
     "src/**/*",
     "prisma/seed.ts"

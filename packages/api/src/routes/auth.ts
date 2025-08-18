@@ -8,7 +8,7 @@ import {
   userProfileUpdateSchema,
   validate,
   ValidationError 
-} from '@openenglishttutor/shared';
+} from '@openenglishtutor/shared/validations';
 
 const router = Router();
 
@@ -71,7 +71,7 @@ router.post('/register', async (req: Request, res: Response): Promise<void> => {
       res.status(400).json({
         success: false,
         error: 'Validation failed',
-        details: error.getFieldErrors()
+        details: (error as ValidationError).getFieldErrors()
       });
       return;
     }
@@ -135,7 +135,7 @@ router.post('/login', async (req: Request, res: Response): Promise<void> => {
       res.status(400).json({
         success: false,
         error: 'Validation failed',
-        details: error.getFieldErrors()
+        details: (error as ValidationError).getFieldErrors()
       });
       return;
     }
@@ -305,7 +305,7 @@ router.put('/profile', authenticateToken, async (req: Request, res: Response): P
       res.status(400).json({
         success: false,
         error: 'Validation failed',
-        details: error.getFieldErrors()
+        details: (error as ValidationError).getFieldErrors()
       });
       return;
     }

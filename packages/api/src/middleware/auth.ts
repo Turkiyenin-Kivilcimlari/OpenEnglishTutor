@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
+import * as jwt from 'jsonwebtoken';
 import { prisma } from '@/config/database';
 import config from '@/config';
-import { User } from '@openenglishttutor/shared';
+import { User } from '@openenglishtutor/shared/types';
 
 // Extend Express Request type to include user
 declare global {
@@ -63,7 +63,11 @@ export const authenticateToken = async (
     }
 
     // Attach user to request
-    req.user = user;
+    req.user = {
+      ...user,
+      firstName: user.firstName ?? undefined,
+      lastName: user.lastName ?? undefined
+    };
     next();
   } catch (error) {
     if (error instanceof jwt.JsonWebTokenError) {
@@ -119,7 +123,11 @@ export const optionalAuth = async (
     });
 
     if (user) {
-      req.user = user;
+      req.user = {
+        ...user,
+        firstName: user.firstName ?? undefined,
+        lastName: user.lastName ?? undefined
+      };
     }
 
     next();
@@ -146,30 +154,20 @@ export const requireRole = (roles: string[]) => {
 };
 
 export const generateToken = (user: { id: string; email: string }): string => {
-  return jwt.sign(
-    {
-      userId: user.id,
-      email: user.email
-    },
-    config.jwtSecret,
-    {
-      expiresIn: config.jwtExpiresIn
-    }
-  );
+  const payload = {
+    userId: user.id,
+    email: user.email
+  };
+  return jwt.sign(payload, config.jwtSecret, { expiresIn: config.jwtExpiresIn } as jwt.SignOptions);
 };
 
 export const generateRefreshToken = (user: { id: string; email: string }): string => {
-  return jwt.sign(
-    {
-      userId: user.id,
-      email: user.email,
-      type: 'refresh'
-    },
-    config.jwtSecret,
-    {
-      expiresIn: '30d' // Refresh tokens last longer
-    }
-  );
+  const payload = {
+    userId: user.id,
+    email: user.email,
+    type: 'refresh'
+  };
+  return jwt.sign(payload, config.jwtSecret, { expiresIn: '30d' } as jwt.SignOptions);
 };
 
 export const verifyRefreshToken = (token: string): JwtPayload | null => {

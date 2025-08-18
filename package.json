@@ -7,19 +7,37 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "turbo run dev",
-    "build": "turbo run build",
+    "dev": "npm run build:shared && turbo run dev",
+    "dev:concurrent": "npm run build:shared && concurrently \"npm run dev:api\" \"npm run dev:web\" --names \"API,WEB\" --prefix-colors \"blue,green\"",
+    "build": "npm run build:shared && turbo run build",
+    "build:shared": "cd packages/shared && npm run build",
+    "build:api": "npm run build:shared && cd packages/api && npm run build",
+    "build:web": "npm run build:shared && cd packages/web && npm run build",
     "test": "turbo run test",
     "lint": "turbo run lint",
     "clean": "turbo run clean",
     "db:migrate": "cd packages/api && npx prisma migrate dev",
     "db:generate": "cd packages/api && npx prisma generate",
-    "db:studio": "cd packages/api && npx prisma studio"
+    "db:seed": "cd packages/api && npm run db:seed",
+    "db:studio": "cd packages/api && npx prisma studio",
+    "db:setup": "npm run db:generate && npm run db:migrate && npm run db:seed",
+    "dev:api": "npm run build:shared && cd packages/api && npm run dev",
+    "dev:web": "npm run build:shared && cd packages/web && npm run dev",
+    "dev:shared": "cd packages/shared && npm run dev",
+    "start:api": "cd packages/api && npm run start",
+    "start:web": "cd packages/web && npm run start",
+    "setup": "node scripts/setup-db.js",
+    "setup:fix": "node scripts/setup-alternative.js",
+    "db:reset": "node scripts/reset-database.js",
+    "docker:reset": "node scripts/reset-docker.js",
+    "troubleshoot": "node scripts/setup-alternative.js",
+    "postinstall": "npm run db:generate && npm run build:shared"
   },
   "devDependencies": {
     "turbo": "^1.10.0",
     "@types/node": "^20.0.0",
-    "typescript": "^5.0.0"
+    "typescript": "^5.0.0",
+    "concurrently": "^8.2.0"
   },
   "engines": {
     "node": ">=18.0.0",

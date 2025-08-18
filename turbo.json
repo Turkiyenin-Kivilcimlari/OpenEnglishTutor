@@ -7,11 +7,12 @@
       "outputs": [".next/**", "!.next/cache/**", "dist/**"]
     },
     "dev": {
+      "dependsOn": ["^build"],
       "cache": false,
       "persistent": true
     },
     "lint": {
-      "dependsOn": ["^lint"]
+      "dependsOn": ["^build"]
     },
     "test": {
       "dependsOn": ["^build"],
@@ -24,6 +25,13 @@
       "cache": false
     },
     "db:generate": {
+      "cache": false
+    },
+    "db:seed": {
+      "cache": false,
+      "dependsOn": ["db:generate"]
+    },
+    "db:setup": {
       "cache": false
     }
   }

@@ -187,11 +187,13 @@ export const percentage = (value: number, total: number): number => {
 
 // Date Utilities
 export const formatDate = (date: Date, format: 'short' | 'long' | 'time' = 'short'): string => {
-  const options: Intl.DateTimeFormatOptions = {
-    short: { year: 'numeric', month: 'short', day: 'numeric' },
-    long: { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' },
-    time: { hour: '2-digit', minute: '2-digit' }
-  }[format];
+  const formatOptions = {
+    short: { year: 'numeric' as const, month: 'short' as const, day: 'numeric' as const },
+    long: { year: 'numeric' as const, month: 'long' as const, day: 'numeric' as const, hour: '2-digit' as const, minute: '2-digit' as const },
+    time: { hour: '2-digit' as const, minute: '2-digit' as const }
+  };
+  
+  const options: Intl.DateTimeFormatOptions = formatOptions[format];
   
   return date.toLocaleDateString('en-US', options);
 };
