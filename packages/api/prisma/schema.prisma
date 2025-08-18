@@ -1,0 +1,188 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String    @id @default(cuid())
+  email           String    @unique
+  passwordHash    String    @map("password_hash")
+  firstName       String?   @map("first_name")
+  lastName        String?   @map("last_name")
+  preferredLanguage String  @default("en") @map("preferred_language")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  
+  // Relations
+  attempts        QuestionAttempt[]
+  progress        UserExamProgress[]
+  
+  @@map("users")
+}
+
+model ExamType {
+  id              String    @id @default(cuid())
+  code            String    @unique // 'ielts', 'toefl', 'yds'
+  name            String
+  description     String?
+  scoringSystem   Json      @map("scoring_system") // Different scoring systems per exam
+  skills          Json      // Available skills for each exam type
+  isActive        Boolean   @default(true) @map("is_active")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  
+  // Relations
+  examSkills      ExamSkill[]
+  questions       Question[]
+  attempts        QuestionAttempt[]
+  progress        UserExamProgress[]
+  evaluationCriteria EvaluationCriteria[]
+  
+  @@map("exam_types")
+}
+
+model ExamSkill {
+  id              String    @id @default(cuid())
+  examTypeId      String    @map("exam_type_id")
+  skillCode       String    @map("skill_code") // 'reading', 'listening', 'writing', 'speaking', 'grammar', 'vocabulary'
+  skillName       String    @map("skill_name")
+  maxScore        Float     @map("max_score")
+  evaluationType  EvaluationType @map("evaluation_type")
+  isActive        Boolean   @default(true) @map("is_active")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  
+  // Relations
+  examType        ExamType  @relation(fields: [examTypeId], references: [id], onDelete: Cascade)
+  questions       Question[]
+  attempts        QuestionAttempt[]
+  progress        UserExamProgress[]
+  evaluationCriteria EvaluationCriteria[]
+  
+  @@unique([examTypeId, skillCode])
+  @@map("exam_skills")
+}
+
+model Question {
+  id              String    @id @default(cuid())
+  examTypeId      String    @map("exam_type_id")
+  skillId         String    @map("skill_id")
+  questionType    QuestionType @map("question_type")
+  difficultyLevel Difficulty @map("difficulty_level")
+  title           String
+  content         String
+  instructions    String?
+  audioUrl        String?   @map("audio_url")
+  imageUrl        String?   @map("image_url")
+  correctAnswer   String?   @map("correct_answer")
+  options         Json?     // For multiple choice questions
+  timeLimit       Int       @default(300) @map("time_limit") // in seconds
+  points          Int       @default(1)
+  metadata        Json?     // Exam-specific metadata
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+  
+  // Relations
+  examType        ExamType  @relation(fields: [examTypeId], references: [id], onDelete: Cascade)
+  skill           ExamSkill @relation(fields: [skillId], references: [id], onDelete: Cascade)
+  attempts        QuestionAttempt[]
+  
+  @@map("questions")
+}
+
+model QuestionAttempt {
+  id                  String    @id @default(cuid())
+  userId              String    @map("user_id")
+  questionId          String    @map("question_id")
+  examTypeId          String    @map("exam_type_id")
+  skillId             String    @map("skill_id")
+  userAnswer          String    @map("user_answer")
+  audioUrl            String?   @map("audio_url") // For speaking responses
+  timeSpent           Int       @default(0) @map("time_spent") // in seconds
+  submittedAt         DateTime  @default(now()) @map("submitted_at")
+  
+  // Evaluation results (immediate)
+  isCorrect           Boolean?  @map("is_correct") // For objective questions
+  score               Float     @default(0) // Normalized score
+  rawScore            Float     @default(0) @map("raw_score") // Original exam-specific score
+  evaluationFeedback  String?   @map("evaluation_feedback")
+  suggestions         String?
+  criteriaScores      Json?     @map("criteria_scores") // Detailed scoring breakdown
+  metadata            Json?     // Additional data
+  
+  // Relations
+  user                User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  question            Question  @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  examType            ExamType  @relation(fields: [examTypeId], references: [id], onDelete: Cascade)
+  skill               ExamSkill @relation(fields: [skillId], references: [id], onDelete: Cascade)
+  
+  @@map("question_attempts")
+}
+
+model UserExamProgress {
+  id               String    @id @default(cuid())
+  userId           String    @map("user_id")
+  examTypeId       String    @map("exam_type_id")
+  skillId          String    @map("skill_id")
+  totalQuestions   Int       @default(0) @map("total_questions")
+  correctAnswers   Int       @default(0) @map("correct_answers")
+  totalPoints      Int       @default(0) @map("total_points")
+  earnedPoints     Int       @default(0) @map("earned_points")
+  averageScore     Float?    @map("average_score")
+  bestScore        Float?    @map("best_score")
+  lastActivity     DateTime  @default(now()) @map("last_activity")
+  updatedAt        DateTime  @updatedAt @map("updated_at")
+  
+  // Relations
+  user             User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  examType         ExamType  @relation(fields: [examTypeId], references: [id], onDelete: Cascade)
+  skill            ExamSkill @relation(fields: [skillId], references: [id], onDelete: Cascade)
+  
+  @@unique([userId, examTypeId, skillId])
+  @@map("user_exam_progress")
+}
+
+model EvaluationCriteria {
+  id                  String    @id @default(cuid())
+  examTypeId          String    @map("exam_type_id")
+  skillId             String    @map("skill_id")
+  criteriaName        String    @map("criteria_name")
+  criteriaDescription String?   @map("criteria_description")
+  maxScore            Float     @map("max_score")
+  weight              Float     @default(1.0)
+  isActive            Boolean   @default(true) @map("is_active")
+  
+  // Relations
+  examType            ExamType  @relation(fields: [examTypeId], references: [id], onDelete: Cascade)
+  skill               ExamSkill @relation(fields: [skillId], references: [id], onDelete: Cascade)
+  
+  @@map("evaluation_criteria")
+}
+
+// Enums
+enum EvaluationType {
+  OBJECTIVE
+  SUBJECTIVE
+  AI_POWERED
+}
+
+enum QuestionType {
+  MULTIPLE_CHOICE
+  TRUE_FALSE
+  FILL_BLANK
+  ESSAY
+  SPEAKING
+  MATCHING
+  ORDERING
+}
+
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
+}

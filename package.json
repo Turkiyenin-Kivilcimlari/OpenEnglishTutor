@@ -1,0 +1,44 @@
+{
+  "name": "openenglishttutor",
+  "version": "1.0.0",
+  "description": "Multi-exam English preparation platform supporting IELTS, TOEFL, and YDS",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "clean": "turbo run clean",
+    "db:migrate": "cd packages/api && npx prisma migrate dev",
+    "db:generate": "cd packages/api && npx prisma generate",
+    "db:studio": "cd packages/api && npx prisma studio"
+  },
+  "devDependencies": {
+    "turbo": "^1.10.0",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/openenglishttutor.git"
+  },
+  "keywords": [
+    "ielts",
+    "toefl",
+    "yds",
+    "english",
+    "exam",
+    "preparation",
+    "ai",
+    "education"
+  ],
+  "author": "OpenEnglishTutor Team",
+  "license": "MIT"
+}
