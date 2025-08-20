@@ -6,7 +6,7 @@ import {
   IELTSSpeakingAIEvaluation,
   TOEFLWritingAIEvaluation,
   TOEFLSpeakingAIEvaluation,
-} from '../../shared/src/types';
+} from '@openenglishttutor/shared/types';
 
 dotenv.config();
 

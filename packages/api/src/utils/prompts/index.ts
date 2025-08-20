@@ -1,4 +1,4 @@
-import { EvaluationType, ExamType, SkillType, QuestionType, Difficulty } from '@openenglishtutor/shared/types';
+import { EvaluationType, ExamType, SkillType, QuestionType, Difficulty } from '@openenglishttutor/shared/types';
 
 interface PromptConfig {
   type: 'writing' | 'speaking';

@@ -1,0 +1,260 @@
+{
+  "structure": {
+    "package.json": true,
+    "docker-compose.yml": true,
+    "turbo.json": true,
+    ".env": true,
+    "README.md": true,
+    "packages/api/package.json": true,
+    "packages/web/package.json": true,
+    "packages/shared/package.json": true,
+    "packages": true,
+    "packages/api": true,
+    "packages/web": true,
+    "packages/shared": true,
+    "packages/api/src": true,
+    "packages/web/src": true,
+    "packages/shared/src": true
+  },
+  "dependencies": {
+    "Root": {
+      "name": "openenglishttutor",
+      "version": "1.0.0",
+      "scripts": [
+        "dev",
+        "dev:concurrent",
+        "build",
+        "build:shared",
+        "build:api",
+        "build:web",
+        "test",
+        "lint",
+        "clean",
+        "db:migrate",
+        "db:generate",
+        "db:seed",
+        "db:studio",
+        "db:setup",
+        "dev:api",
+        "dev:web",
+        "dev:shared",
+        "start:api",
+        "start:web",
+        "setup",
+        "setup:fix",
+        "db:reset",
+        "docker:reset",
+        "troubleshoot",
+        "postinstall"
+      ],
+      "dependencies": [],
+      "devDependencies": [
+        "turbo",
+        "@types/node",
+        "typescript",
+        "concurrently"
+      ]
+    },
+    "API": {
+      "name": "@openenglishttutor/api",
+      "version": "1.0.0",
+      "scripts": [
+        "dev",
+        "build",
+        "start",
+        "clean",
+        "lint",
+        "test",
+        "test:watch",
+        "db:migrate",
+        "db:generate",
+        "db:studio",
+        "db:seed"
+      ],
+      "dependencies": [
+        "@google-cloud/speech",
+        "@google-cloud/text-to-speech",
+        "@openenglishttutor/shared",
+        "@prisma/client",
+        "bcryptjs",
+        "compression",
+        "cookie-parser",
+        "cors",
+        "dotenv",
+        "express",
+        "express-rate-limit",
+        "express-validator",
+        "helmet",
+        "jsonwebtoken",
+        "morgan",
+        "multer",
+        "openai",
+        "prisma",
+        "redis",
+        "winston",
+        "zod"
+      ],
+      "devDependencies": [
+        "@types/bcryptjs",
+        "@types/compression",
+        "@types/cookie-parser",
+        "@types/cors",
+        "@types/express",
+        "@types/jest",
+        "@types/jsonwebtoken",
+        "@types/morgan",
+        "@types/multer",
+        "@types/node",
+        "@types/supertest",
+        "@typescript-eslint/eslint-plugin",
+        "@typescript-eslint/parser",
+        "eslint",
+        "jest",
+        "supertest",
+        "ts-jest",
+        "tsx",
+        "typescript"
+      ]
+    },
+    "Web": {
+      "name": "@openenglishttutor/web",
+      "version": "1.0.0",
+      "scripts": [
+        "dev",
+        "build",
+        "start",
+        "lint",
+        "clean"
+      ],
+      "dependencies": [
+        "@openenglishttutor/shared",
+        "next",
+        "react",
+        "react-dom",
+        "axios",
+        "react-query",
+        "react-hook-form",
+        "react-router-dom",
+        "zustand",
+        "clsx",
+        "lucide-react"
+      ],
+      "devDependencies": [
+        "@types/node",
+        "@types/react",
+        "@types/react-dom",
+        "typescript",
+        "tailwindcss",
+        "autoprefixer",
+        "postcss",
+        "eslint",
+        "eslint-config-next"
+      ]
+    },
+    "Shared": {
+      "name": "@openenglishttutor/shared",
+      "version": "1.0.0",
+      "scripts": [
+        "build",
+        "dev",
+        "clean",
+        "lint",
+        "test"
+      ],
+      "dependencies": [
+        "zod"
+      ],
+      "devDependencies": [
+        "@types/node",
+        "typescript",
+        "eslint",
+        "@typescript-eslint/eslint-plugin",
+        "@typescript-eslint/parser",
+        "jest",
+        "@types/jest",
+        "ts-jest"
+      ]
+    }
+  },
+  "configuration": {
+    ".env": {
+      "exists": true,
+      "hasDbUrl": true,
+      "hasRedisUrl": true,
+      "hasJwtSecret": true
+    },
+    "packages/api/.env": {
+      "exists": true,
+      "hasDbUrl": true,
+      "hasRedisUrl": true,
+      "hasJwtSecret": true
+    },
+    "database": {
+      "schema": true,
+      "models": 7,
+      "migrations": 1
+    }
+  },
+  "docker": {
+    "compose": {
+      "exists": true,
+      "hasPostgres": true,
+      "hasRedis": true,
+      "hasAdminer": true
+    },
+    "available": true
+  },
+  "build": {
+    "Shared Package": {
+      "success": true,
+      "output": "\n> @openenglishttutor/shared@1.0.0 build\n> tsc\n\n"
+    },
+    "API Package": {
+      "success": false,
+      "error": "Command failed: npm run build\nnpm error Lifecycle script `build` failed with error:\nnpm error code 1\nnpm error path C:\\Users\\90553\\Documents\\OpenEnglishTutor\\packages\\api\nnpm error workspace @openenglishttutor/api@1.0.0\nnpm error location C:\\Users\\90553\\Documents\\OpenEnglishTutor\\packages\\api\nnpm error command failed\nnpm error command C:\\WINDOWS\\system32\\cmd.exe /d /s /c tsc\n",
+      "output": "\n> @openenglishttutor/api@1.0.0 build\n> tsc\n\nsrc/middleware/auth.ts(5,22): error TS2307: Cannot find module '@openenglishtutor/shared/types' or its corresponding type declarations.\r\nsrc/routes/auth.ts(11,8): error TS2307: Cannot find module '@openenglishtutor/shared/validations' or its corresponding type declarations.\r\nsrc/scripts/seed.ts(2,58): error TS2307: Cannot find module '@openenglishtutor/shared/types' or its corresponding type declarations.\r\nsrc/services/ai/OpenAIService.ts(9,8): error TS2307: Cannot find module '../../shared/src/types' or its corresponding type declarations.\r\nsrc/services/exam-types/IELTSService.ts(5,96): error TS2307: Cannot find module '@openenglishtutor/shared/types' or its corresponding type declarations.\r\nsrc/utils/prompts/index.ts(1,79): error TS2307: Cannot find module '@openenglishtutor/shared/types' or its corresponding type declarations.\r\n"
+    },
+    "Web Package": {
+      "success": false,
+      "error": "Command failed: npm run build\nFailed to compile.\n\n./src/pages/practice.tsx:145:57\nType error: Object is possibly 'undefined'.\n\n\u001b[0m \u001b[90m 143 |\u001b[39m               \u001b[33m<\u001b[39m\u001b[33m/\u001b[39m\u001b[33mLink\u001b[39m\u001b[33m>\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 144 |\u001b[39m               \u001b[33m<\u001b[39m\u001b[33mh1\u001b[39m className\u001b[33m=\u001b[39m\u001b[32m\"text-xl font-bold text-gray-900\"\u001b[39m\u001b[33m>\u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 145 |\u001b[39m                 {examType\u001b[33m?\u001b[39m\u001b[33m.\u001b[39mtoString()\u001b[33m.\u001b[39mtoUpperCase()} \u001b[33m-\u001b[39m {skill\u001b[33m?\u001b[39m\u001b[33m.\u001b[39mtoString()\u001b[33m.\u001b[39mcharAt(\u001b[35m0\u001b[39m)\u001b[33m.\u001b[39mtoUpperCase() \u001b[33m+\u001b[39m skill\u001b[33m?\u001b[39m\u001b[33m.\u001b[39mtoString()\u001b[33m.\u001b[39mslice(\u001b[35m1\u001b[39m)}\u001b[0m\n\u001b[0m \u001b[90m     |\u001b[39m                                                         \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 146 |\u001b[39m               \u001b[33m<\u001b[39m\u001b[33m/\u001b[39m\u001b[33mh1\u001b[39m\u001b[33m>\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 147 |\u001b[39m             \u001b[33m<\u001b[39m\u001b[33m/\u001b[39m\u001b[33mdiv\u001b[39m\u001b[33m>\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 148 |\u001b[39m             \u001b[33m<\u001b[39m\u001b[33mdiv\u001b[39m className\u001b[33m=\u001b[39m\u001b[32m\"flex items-center space-x-4\"\u001b[39m\u001b[33m>\u001b[39m\u001b[0m\nNext.js build worker exited with code: 1 and signal: null\nnpm error Lifecycle script `build` failed with error:\nnpm error code 1\nnpm error path C:\\Users\\90553\\Documents\\OpenEnglishTutor\\packages\\web\nnpm error workspace @openenglishttutor/web@1.0.0\nnpm error location C:\\Users\\90553\\Documents\\OpenEnglishTutor\\packages\\web\nnpm error command failed\nnpm error command C:\\WINDOWS\\system32\\cmd.exe /d /s /c next build\n",
+      "output": "\n> @openenglishttutor/web@1.0.0 build\n> next build\n\n  ▲ Next.js 14.2.30\n\n   Linting and checking validity of types ...\n"
+    }
+  },
+  "tests": {
+    "Root Lint": {
+      "success": false,
+      "reason": "error",
+      "error": "Command failed: npm run lint --if-present\n@openenglishttutor/shared:lint: ERROR: command finished with error: command (C:\\Users\\90553\\Documents\\OpenEnglishTutor\\packages\\shared) C:\\Program Files\\nodejs\\npm.cmd run lint exited (2)\n@openenglishttutor/shared#lint: command (C:\\Users\\90553\\Documents\\OpenEnglishTutor\\packages\\shared) C:\\Program Files\\nodejs\\npm.cmd run lint exited (2)\n ERROR  run failed: command  exited (2)\n"
+    },
+    "Root Test": {
+      "success": false,
+      "reason": "error",
+      "error": "Command failed: npm run test --if-present\n@openenglishttutor/shared:test: ERROR: command finished with error: command (C:\\Users\\90553\\Documents\\OpenEnglishTutor\\packages\\shared) C:\\Program Files\\nodejs\\npm.cmd run test exited (1)\n@openenglishttutor/shared#test: command (C:\\Users\\90553\\Documents\\OpenEnglishTutor\\packages\\shared) C:\\Program Files\\nodejs\\npm.cmd run test exited (1)\n ERROR  run failed: command  exited (1)\n"
+    },
+    "API Lint": {
+      "success": false,
+      "reason": "error",
+      "error": "Command failed: npm run lint --if-present\n\nOops! Something went wrong! :(\n\nESLint: 8.57.1\n\nESLint couldn't find a configuration file. To set up a configuration file for this project, please run:\n\n    npm init @eslint/config\n\nESLint looked for configuration files in C:\\Users\\90553\\Documents\\OpenEnglishTutor\\packages\\api\\src\\config and its ancestors. If it found none, it then looked in your home directory.\n\nIf you think you already have a configuration file or if you need more help, please stop by the ESLint Discord server: https://eslint.org/chat\n\nnpm error Lifecycle script `lint` failed with error:\nnpm error code 2\nnpm error path C:\\Users\\90553\\Documents\\OpenEnglishTutor\\packages\\api\nnpm error workspace @openenglishttutor/api@1.0.0\nnpm error location C:\\Users\\90553\\Documents\\OpenEnglishTutor\\packages\\api\nnpm error command failed\nnpm error command C:\\WINDOWS\\system32\\cmd.exe /d /s /c eslint src --ext .ts\n"
+    },
+    "API Test": {
+      "success": false,
+      "reason": "error",
+      "error": "Command failed: npm run test --if-present\n● Validation Warning:\n\n  Unknown option \"moduleNameMapping\" with value {\"^@/(.*)$\": \"<rootDir>/src/$1\"} was found.\n  This is probably a typing mistake. Fixing it will remove this message.\n\n  Configuration Documentation:\n  https://jestjs.io/docs/configuration\n\n● Validation Warning:\n\n  Unknown option \"moduleNameMapping\" with value {\"^@/(.*)$\": \"<rootDir>/src/$1\"} was found.\n  This is probably a typing mistake. Fixing it will remove this message.\n\n  Configuration Documentation:\n  https://jestjs.io/docs/configuration\n\nFAIL tests/health.test.ts\n  ● Test suite failed to run\n\n    \u001b[96mtests/setup.ts\u001b[0m:\u001b[93m4\u001b[0m:\u001b[93m1\u001b[0m - \u001b[91merror\u001b[0m\u001b[90m TS2304: \u001b[0mCannot find name 'jest'.\n\n    \u001b[7m4\u001b[0m jest.mock('@prisma/client', () => ({\n    \u001b[7m \u001b[0m \u001b[91m~~~~\u001b[0m\n    \u001b[96mtests/setup.ts\u001b[0m:\u001b[93m5\u001b[0m:\u001b[93m17\u001b[0m - \u001b[91merror\u001b[0m\u001b[90m TS2304: \u001b[0mCannot find name 'jest'.\n\n    \u001b[7m5\u001b[0m   PrismaClient: jest.fn().mockImplementation(() => ({\n    \u001b[7m \u001b[0m \u001b[91m                ~~~~\u001b[0m\n    \u001b[96mtests/setup.ts\u001b[0m:\u001b[93m6\u001b[0m:\u001b[93m15\u001b[0m - \u001b[91merror\u001b[0m\u001b[90m TS2304: \u001b[0mCannot find name 'jest'.\n\n    \u001b[7m6\u001b[0m     $connect: jest.fn(),\n    \u001b[7m \u001b[0m \u001b[91m              ~~~~\u001b[0m\n    \u001b[96mtests/setup.ts\u001b[0m:\u001b[93m7\u001b[0m:\u001b[93m18\u001b[0m - \u001b[91merror\u001b[0m\u001b[90m TS2304: \u001b[0mCannot find name 'jest'.\n\n    \u001b[7m7\u001b[0m     $disconnect: jest.fn(),\n    \u001b[7m \u001b[0m \u001b[91m                 ~~~~\u001b[0m\n    \u001b[96mtests/setup.ts\u001b[0m:\u001b[93m8\u001b[0m:\u001b[93m16\u001b[0m - \u001b[91merror\u001b[0m\u001b[90m TS2304: \u001b[0mCannot find name 'jest'.\n\n    \u001b[7m8\u001b[0m     $queryRaw: jest.fn(),\n    \u001b[7m \u001b[0m \u001b[91m               ~~~~\u001b[0m\n    \u001b[96mtests/setup.ts\u001b[0m:\u001b[93m10\u001b[0m:\u001b[93m15\u001b[0m - \u001b[91merror\u001b[0m\u001b[90m TS2304: \u001b[0mCannot find name 'jest'.\n\n    \u001b[7m10\u001b[0m       create: jest.fn(),\n    \u001b[7m  \u001b[0m \u001b[91m              ~~~~\u001b[0m\n    \u001b[96mtests/setup.ts\u001b[0m:\u001b[93m11\u001b[0m:\u001b[93m19\u001b[0m - \u001b[91merror\u001b[0m\u001b[90m TS2304: \u001b[0mCannot find name 'jest'.\n\n    \u001b[7m11\u001b[0m       findUnique: jest.fn(),\n    \u001b[7m  \u001b[0m \u001b[91m                  ~~~~\u001b[0m\n    \u001b[96mtests/setup.ts\u001b[0m:\u001b[93m12\u001b[0m:\u001b[93m17\u001b[0m - \u001b[91merror\u001b[0m\u001b[90m TS2304: \u001b[0mCannot find name 'jest'.\n\n    \u001b[7m12\u001b[0m       findMany: jest.fn(),\n    \u001b[7m  \u001b[0m \u001b[91m                ~~~~\u001b[0m\n    \u001b[96mtests/setup.ts\u001b[0m:\u001b[93m15\u001b[0m:\u001b[93m17\u001b[0m - \u001b[91merror\u001b[0m\u001b[90m TS2304: \u001b[0mCannot find name 'jest'.\n\n    \u001b[7m15\u001b[0m       findMany: jest.fn(),\n    \u001b[7m  \u001b[0m \u001b[91m                ~~~~\u001b[0m\n    \u001b[96mtests/setup.ts\u001b[0m:\u001b[93m16\u001b[0m:\u001b[93m19\u001b[0m - \u001b[91merror\u001b[0m\u001b[90m TS2304: \u001b[0mCannot find name 'jest'.\n\n    \u001b[7m16\u001b[0m       findUnique: jest.fn(),\n    \u001b[7m  \u001b[0m \u001b[91m                  ~~~~\u001b[0m\n    \u001b[96mtests/setup.ts\u001b[0m:\u001b[93m19\u001b[0m:\u001b[93m17\u001b[0m - \u001b[91merror\u001b[0m\u001b[90m TS2304: \u001b[0mCannot find name 'jest'.\n\n    \u001b[7m19\u001b[0m       findMany: jest.fn(),\n    \u001b[7m  \u001b[0m \u001b[91m                ~~~~\u001b[0m\n    \u001b[96mtests/setup.ts\u001b[0m:\u001b[93m20\u001b[0m:\u001b[93m19\u001b[0m - \u001b[91merror\u001b[0m\u001b[90m TS2304: \u001b[0mCannot find name 'jest'.\n\n    \u001b[7m20\u001b[0m       findUnique: jest.fn(),\n    \u001b[7m  \u001b[0m \u001b[91m                  ~~~~\u001b[0m\n    \u001b[96mtests/setup.ts\u001b[0m:\u001b[93m31\u001b[0m:\u001b[93m1\u001b[0m - \u001b[91merror\u001b[0m\u001b[90m TS2304: \u001b[0mCannot find name 'jest'.\n\n    \u001b[7m31\u001b[0m jest.setTimeout(10000);\n    \u001b[7m  \u001b[0m \u001b[91m~~~~\u001b[0m\n\nFAIL tests/auth.test.ts\n  ● Test suite failed to run\n\n    \u001b[96mtests/setup.ts\u001b[0m:\u001b[93m4\u001b[0m:\u001b[93m1\u001b[0m - \u001b[91merror\u001b[0m\u001b[90m TS2304: \u001b[0mCannot find name 'jest'.\n\n    \u001b[7m4\u001b[0m jest.mock('@prisma/client', () => ({\n    \u001b[7m \u001b[0m \u001b[91m~~~~\u001b[0m\n    \u001b[96mtests/setup.ts\u001b[0m:\u001b[93m5\u001b[0m:\u001b[93m17\u001b[0m - \u001b[91merror\u001b[0m\u001b[90m TS2304: \u001b[0mCannot find name 'jest'.\n\n    \u001b[7m5\u001b[0m   PrismaClient: jest.fn().mockImplementation(() => ({\n    \u001b[7m \u001b[0m \u001b[91m                ~~~~\u001b[0m\n    \u001b[96mtests/setup.ts\u001b[0m:\u001b[93m6\u001b[0m:\u001b[93m15\u001b[0m - \u001b[91merror\u001b[0m\u001b[90m TS2304: \u001b[0mCannot find name 'jest'.\n\n    \u001b[7m6\u001b[0m     $connect: jest.fn(),\n    \u001b[7m \u001b[0m \u001b[91m              ~~~~\u001b[0m\n    \u001b[96mtests/setup.ts\u001b[0m:\u001b[93m7\u001b[0m:\u001b[93m18\u001b[0m - \u001b[91merror\u001b[0m\u001b[90m TS2304: \u001b[0mCannot find name 'jest'.\n\n    \u001b[7m7\u001b[0m     $disconnect: jest.fn(),\n    \u001b[7m \u001b[0m \u001b[91m                 ~~~~\u001b[0m\n    \u001b[96mtests/setup.ts\u001b[0m:\u001b[93m8\u001b[0m:\u001b[93m16\u001b[0m - \u001b[91merror\u001b[0m\u001b[90m TS2304: \u001b[0mCannot find name 'jest'.\n\n    \u001b[7m8\u001b[0m     $queryRaw: jest.fn(),\n    \u001b[7m \u001b[0m \u001b[91m               ~~~~\u001b[0m\n    \u001b[96mtests/setup.ts\u001b[0m:\u001b[93m10\u001b[0m:\u001b[93m15\u001b[0m - \u001b[91merror\u001b[0m\u001b[90m TS2304: \u001b[0mCannot find name 'jest'.\n\n    \u001b[7m10\u001b[0m       create: jest.fn(),\n    \u001b[7m  \u001b[0m \u001b[91m              ~~~~\u001b[0m\n    \u001b[96mtests/setup.ts\u001b[0m:\u001b[93m11\u001b[0m:\u001b[93m19\u001b[0m - \u001b[91merror\u001b[0m\u001b[90m TS2304: \u001b[0mCannot find name 'jest'.\n\n    \u001b[7m11\u001b[0m       findUnique: jest.fn(),\n    \u001b[7m  \u001b[0m \u001b[91m                  ~~~~\u001b[0m\n    \u001b[96mtests/setup.ts\u001b[0m:\u001b[93m12\u001b[0m:\u001b[93m17\u001b[0m - \u001b[91merror\u001b[0m\u001b[90m TS2304: \u001b[0mCannot find name 'jest'.\n\n    \u001b[7m12\u001b[0m       findMany: jest.fn(),\n    \u001b[7m  \u001b[0m \u001b[91m                ~~~~\u001b[0m\n    \u001b[96mtests/setup.ts\u001b[0m:\u001b[93m15\u001b[0m:\u001b[93m17\u001b[0m - \u001b[91merror\u001b[0m\u001b[90m TS2304: \u001b[0mCannot find name 'jest'.\n\n    \u001b[7m15\u001b[0m       findMany: jest.fn(),\n    \u001b[7m  \u001b[0m \u001b[91m                ~~~~\u001b[0m\n    \u001b[96mtests/setup.ts\u001b[0m:\u001b[93m16\u001b[0m:\u001b[93m19\u001b[0m - \u001b[91merror\u001b[0m\u001b[90m TS2304: \u001b[0mCannot find name 'jest'.\n\n    \u001b[7m16\u001b[0m       findUnique: jest.fn(),\n    \u001b[7m  \u001b[0m \u001b[91m                  ~~~~\u001b[0m\n    \u001b[96mtests/setup.ts\u001b[0m:\u001b[93m19\u001b[0m:\u001b[93m17\u001b[0m - \u001b[91merror\u001b[0m\u001b[90m TS2304: \u001b[0mCannot find name 'jest'.\n\n    \u001b[7m19\u001b[0m       findMany: jest.fn(),\n    \u001b[7m  \u001b[0m \u001b[91m                ~~~~\u001b[0m\n    \u001b[96mtests/setup.ts\u001b[0m:\u001b[93m20\u001b[0m:\u001b[93m19\u001b[0m - \u001b[91merror\u001b[0m\u001b[90m TS2304: \u001b[0mCannot find name 'jest'.\n\n    \u001b[7m20\u001b[0m       findUnique: jest.fn(),\n    \u001b[7m  \u001b[0m \u001b[91m                  ~~~~\u001b[0m\n    \u001b[96mtests/setup.ts\u001b[0m:\u001b[93m31\u001b[0m:\u001b[93m1\u001b[0m - \u001b[91merror\u001b[0m\u001b[90m TS2304: \u001b[0mCannot find name 'jest'.\n\n    \u001b[7m31\u001b[0m jest.setTimeout(10000);\n    \u001b[7m  \u001b[0m \u001b[91m~~~~\u001b[0m\n\nTest Suites: 2 failed, 2 total\nTests:       0 total\nSnapshots:   0 total\nTime:        2.65 s\nRan all test suites.\nnpm error Lifecycle script `test` failed with error:\nnpm error code 1\nnpm error path C:\\Users\\90553\\Documents\\OpenEnglishTutor\\packages\\api\nnpm error workspace @openenglishttutor/api@1.0.0\nnpm error location C:\\Users\\90553\\Documents\\OpenEnglishTutor\\packages\\api\nnpm error command failed\nnpm error command C:\\WINDOWS\\system32\\cmd.exe /d /s /c jest\n"
+    },
+    "Web Lint": {
+      "success": false,
+      "reason": "error",
+      "error": "Command failed: npm run lint --if-present\n ⚠ If you set up ESLint yourself, we recommend adding the Next.js ESLint plugin. See https://nextjs.org/docs/basic-features/eslint#migrating-existing-config\nnpm error Lifecycle script `lint` failed with error:\nnpm error code 1\nnpm error path C:\\Users\\90553\\Documents\\OpenEnglishTutor\\packages\\web\nnpm error workspace @openenglishttutor/web@1.0.0\nnpm error location C:\\Users\\90553\\Documents\\OpenEnglishTutor\\packages\\web\nnpm error command failed\nnpm error command C:\\WINDOWS\\system32\\cmd.exe /d /s /c next lint\n"
+    }
+  },
+  "issues": [
+    "API Package build fails",
+    "Web Package build fails"
+  ],
+  "recommendations": [
+    "Fix build issues before deployment",
+    "Check TypeScript configuration and import paths",
+    "Consider adding automated CI/CD pipeline",
+    "Add comprehensive integration tests"
+  ]
+}

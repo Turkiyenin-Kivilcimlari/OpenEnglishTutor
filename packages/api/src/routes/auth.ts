@@ -2,13 +2,13 @@ import { Router, Request, Response } from 'express';
 import bcrypt from 'bcryptjs';
 import { prisma } from '@/config/database';
 import { authenticateToken, generateToken, generateRefreshToken, verifyRefreshToken } from '@/middleware/auth';
-import { 
-  userRegistrationSchema, 
-  userLoginSchema, 
+import {
+  userRegistrationSchema,
+  userLoginSchema,
   userProfileUpdateSchema,
   validate,
-  ValidationError 
-} from '@openenglishtutor/shared/validations';
+  ValidationError
+} from '@openenglishttutor/shared/validations';
 
 const router = Router();
 
