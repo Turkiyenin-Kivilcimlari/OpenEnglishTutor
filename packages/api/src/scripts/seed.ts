@@ -1,5 +1,4 @@
 import { PrismaClient } from '@prisma/client';
-import { EvaluationType, QuestionType, Difficulty } from '@openenglishtutor/shared/types';
 
 const prisma = new PrismaClient();
 
@@ -99,7 +98,7 @@ async function main() {
         skillCode: 'reading',
         skillName: 'Reading',
         maxScore: 9,
-        evaluationType: EvaluationType.OBJECTIVE
+        evaluationType: 'OBJECTIVE'
       }
     }),
     prisma.examSkill.upsert({
@@ -110,7 +109,7 @@ async function main() {
         skillCode: 'listening',
         skillName: 'Listening',
         maxScore: 9,
-        evaluationType: EvaluationType.OBJECTIVE
+        evaluationType: 'OBJECTIVE'
       }
     }),
     prisma.examSkill.upsert({
@@ -121,7 +120,7 @@ async function main() {
         skillCode: 'writing',
         skillName: 'Writing',
         maxScore: 9,
-        evaluationType: EvaluationType.AI_POWERED
+        evaluationType: 'AI_POWERED'
       }
     }),
     prisma.examSkill.upsert({
@@ -132,7 +131,7 @@ async function main() {
         skillCode: 'speaking',
         skillName: 'Speaking',
         maxScore: 9,
-        evaluationType: EvaluationType.AI_POWERED
+        evaluationType: 'AI_POWERED'
       }
     })
   ]);
@@ -147,7 +146,7 @@ async function main() {
         skillCode: 'reading',
         skillName: 'Reading',
         maxScore: 30,
-        evaluationType: EvaluationType.OBJECTIVE
+        evaluationType: 'OBJECTIVE'
       }
     }),
     prisma.examSkill.upsert({
@@ -158,7 +157,7 @@ async function main() {
         skillCode: 'listening',
         skillName: 'Listening',
         maxScore: 30,
-        evaluationType: EvaluationType.OBJECTIVE
+        evaluationType: 'OBJECTIVE'
       }
     }),
     prisma.examSkill.upsert({
@@ -169,7 +168,7 @@ async function main() {
         skillCode: 'writing',
         skillName: 'Writing',
         maxScore: 30,
-        evaluationType: EvaluationType.AI_POWERED
+        evaluationType: 'AI_POWERED'
       }
     }),
     prisma.examSkill.upsert({
@@ -180,7 +179,7 @@ async function main() {
         skillCode: 'speaking',
         skillName: 'Speaking',
         maxScore: 30,
-        evaluationType: EvaluationType.AI_POWERED
+        evaluationType: 'AI_POWERED'
       }
     })
   ]);
@@ -195,7 +194,7 @@ async function main() {
         skillCode: 'reading',
         skillName: 'Reading Comprehension',
         maxScore: 40,
-        evaluationType: EvaluationType.OBJECTIVE
+        evaluationType: 'OBJECTIVE'
       }
     }),
     prisma.examSkill.upsert({
@@ -206,7 +205,7 @@ async function main() {
         skillCode: 'grammar',
         skillName: 'Grammar & Structure',
         maxScore: 40,
-        evaluationType: EvaluationType.OBJECTIVE
+        evaluationType: 'OBJECTIVE'
       }
     }),
     prisma.examSkill.upsert({
@@ -217,7 +216,7 @@ async function main() {
         skillCode: 'vocabulary',
         skillName: 'Vocabulary',
         maxScore: 20,
-        evaluationType: EvaluationType.OBJECTIVE
+        evaluationType: 'OBJECTIVE'
       }
     })
   ]);
@@ -233,8 +232,8 @@ async function main() {
       {
         examTypeId: examTypes[0].id,
         skillId: ieltsSkills[0].id,
-        questionType: QuestionType.MULTIPLE_CHOICE,
-        difficultyLevel: Difficulty.MEDIUM,
+        questionType: 'MULTIPLE_CHOICE',
+        difficultyLevel: 'MEDIUM',
         title: 'IELTS Reading Comprehension - Climate Change',
         content: `Read the following passage and answer the question:
 
@@ -261,8 +260,8 @@ Question: According to the passage, what is the primary cause of recent climate 
       {
         examTypeId: examTypes[0].id,
         skillId: ieltsSkills[0].id,
-        questionType: QuestionType.TRUE_FALSE,
-        difficultyLevel: Difficulty.EASY,
+        questionType: 'TRUE_FALSE',
+        difficultyLevel: 'EASY',
         title: 'IELTS Reading - True/False/Not Given',
         content: `Read the statement and decide if it is True, False, or Not Given based on the passage above:
 
@@ -285,8 +284,8 @@ Statement: "The Earth's temperature has increased by more than 2 degrees Celsius
     data: {
       examTypeId: examTypes[0].id,
       skillId: ieltsSkills[2].id,
-      questionType: QuestionType.ESSAY,
-      difficultyLevel: Difficulty.HARD,
+      questionType: 'ESSAY',
+      difficultyLevel: 'HARD',
       title: 'IELTS Writing Task 2 - Technology and Education',
       content: `Some people believe that technology has made learning easier and more accessible, while others argue that it has made students lazy and less capable of deep thinking.
 
@@ -310,8 +309,8 @@ Give reasons for your answer and include any relevant examples from your own kno
       {
         examTypeId: examTypes[1].id,
         skillId: toeflSkills[0].id,
-        questionType: QuestionType.MULTIPLE_CHOICE,
-        difficultyLevel: Difficulty.HARD,
+        questionType: 'MULTIPLE_CHOICE',
+        difficultyLevel: 'HARD',
         title: 'TOEFL Reading - Academic Passage',
         content: `The Industrial Revolution, which began in Britain in the late 18th century, marked a fundamental shift in human society. This period saw the transition from manual labor and handicrafts to mechanized manufacturing. The invention of the steam engine by James Watt in 1769 was particularly significant, as it provided a reliable source of power that was not dependent on natural forces like wind or water.
 
@@ -341,8 +340,8 @@ Question: What can be inferred about the steam engine's impact on manufacturing?
     data: {
       examTypeId: examTypes[1].id,
       skillId: toeflSkills[3].id,
-      questionType: QuestionType.SPEAKING,
-      difficultyLevel: Difficulty.MEDIUM,
+      questionType: 'SPEAKING',
+      difficultyLevel: 'MEDIUM',
       title: 'TOEFL Speaking Task 1 - Personal Preference',
       content: `Some people prefer to work in a team environment, while others prefer to work independently. Which do you prefer and why?
 
@@ -365,8 +364,8 @@ Use specific reasons and examples to support your answer.`,
       {
         examTypeId: examTypes[2].id,
         skillId: ydsSkills[1].id,
-        questionType: QuestionType.MULTIPLE_CHOICE,
-        difficultyLevel: Difficulty.MEDIUM,
+        questionType: 'MULTIPLE_CHOICE',
+        difficultyLevel: 'MEDIUM',
         title: 'YDS Grammar - Conditional Sentences',
         content: `Complete the sentence with the most appropriate option:
 
@@ -389,8 +388,8 @@ Use specific reasons and examples to support your answer.`,
       {
         examTypeId: examTypes[2].id,
         skillId: ydsSkills[2].id,
-        questionType: QuestionType.MULTIPLE_CHOICE,
-        difficultyLevel: Difficulty.HARD,
+        questionType: 'MULTIPLE_CHOICE',
+        difficultyLevel: 'HARD',
         title: 'YDS Vocabulary - Academic Words',
         content: `Choose the word that best completes the sentence:
 
@@ -413,8 +412,8 @@ Use specific reasons and examples to support your answer.`,
       {
         examTypeId: examTypes[2].id,
         skillId: ydsSkills[0].id,
-        questionType: QuestionType.MULTIPLE_CHOICE,
-        difficultyLevel: Difficulty.HARD,
+        questionType: 'MULTIPLE_CHOICE',
+        difficultyLevel: 'HARD',
         title: 'YDS Reading Comprehension - Scientific Text',
         content: `Read the passage and answer the question:
 

@@ -142,7 +142,7 @@ export default function PracticePage() {
                 </svg>
               </Link>
               <h1 className="text-xl font-bold text-gray-900">
-                {examType?.toString().toUpperCase()} - {skill?.toString().charAt(0).toUpperCase() + skill?.toString().slice(1)}
+                {examType?.toString().toUpperCase()} - {skill ? skill.toString().charAt(0).toUpperCase() + skill.toString().slice(1) : ''}
               </h1>
             </div>
             <div className="flex items-center space-x-4">

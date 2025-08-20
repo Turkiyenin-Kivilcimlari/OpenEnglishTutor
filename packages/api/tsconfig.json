@@ -2,8 +2,8 @@
   "compilerOptions": {
     "target": "ES2020",
     "lib": ["ES2020", "DOM"],
-    "module": "CommonJS",
-    "moduleResolution": "node",
+    "module": "Node16",
+    "moduleResolution": "node16",
     "declaration": true,
     "declarationMap": true,
     "outDir": "./dist",
@@ -29,10 +29,10 @@
       "@/middleware/*": ["middleware/*"],
       "@/utils/*": ["utils/*"],
       "@/config/*": ["config/*"],
-      "@openenglishtutor/shared/types": ["../../packages/shared/src/types"],
-      "@openenglishtutor/shared/constants": ["../../packages/shared/src/constants"],
-      "@openenglishtutor/shared/utils": ["../../packages/shared/src/utils"],
-      "@openenglishtutor/shared/validations": ["../../packages/shared/src/validations"]
+      "@openenglishttutor/shared/types": ["../../packages/shared/src/types"],
+      "@openenglishttutor/shared/constants": ["../../packages/shared/src/constants"],
+      "@openenglishttutor/shared/utils": ["../../packages/shared/src/utils"],
+      "@openenglishttutor/shared/validations": ["../../packages/shared/src/validations"]
     }
   },
   "references": [

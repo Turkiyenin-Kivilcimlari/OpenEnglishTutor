@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import * as jwt from 'jsonwebtoken';
 import { prisma } from '@/config/database';
 import config from '@/config';
-import { User } from '@openenglishtutor/shared/types';
+import { User } from '@openenglishttutor/shared/types';
 
 // Extend Express Request type to include user
 declare global {
